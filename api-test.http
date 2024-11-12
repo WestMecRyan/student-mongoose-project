@@ -1,0 +1,23 @@
+@database = BigBoxStore
+@collection = GroceryInventory
+@domain = http://localhost
+@port = 3000
+
+###
+GET {{domain}}:{{port}}/find/{{database}}/{{collection}}
+Content-Type: application/json
+
+###
+POST {{domain}}:{{port}}/insert/{{database}}/{{collection}}
+Content-Type: application/json
+
+{
+  "document": {
+      "item": "cashews",
+      "food_group": "nuts",
+      "price_in_usd": 12.0,
+      "quantity": 10,
+      "calories_per_100g": 579,
+      "organic": false
+    }
+}
