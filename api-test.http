@@ -12,9 +12,9 @@ POST {{domain}}:{{port}}/insert/{{database}}/{{collection}}
 Content-Type: application/json
 
 {
-      "item": "steak",
-      "food_group": "proteins"
-      }
+  "item": "steak",
+  "food_group": "proteins"
+}
 
 
 ### Delete a Collection from a Database
