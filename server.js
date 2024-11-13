@@ -11,7 +11,6 @@ app.use(express.json());
 
 const connections = {};
 const models = {};
-const grocerySchema = new mongoose.Schema({});
 
 const getConnection = async (dbName) => {
     console.log(`getConnection called with ${dbName}`);
