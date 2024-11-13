@@ -1,3 +1,5 @@
+# Mongoose project day 2 changes
+
 ## In server.js
 
 - add the following code below `app.use(express.json())`
@@ -29,8 +31,15 @@ await new Promise((resolve, reject) => {
 });
 ```
 
-- in the getModel() function replace all of the code starting with and including ` // Create a dynamic schema that accepts any fields
-      const dynamicSchema = new mongoose.Schema({}, { strict: false });` all the way to and including ` console.log("Created new model for collection:", collectionName);` with the below code:
+- in the getModel() function replace all of the code starting with and including
+```js // Create a dynamic schema that accepts any fields
+const dynamicSchema = new mongoose.Schema({}, { strict: false });
+```
+all the way to and including
+```js
+console.log("Created new model for collection:", collectionName);
+```
+with the below code:
 
 ```js
 const Model = modelMapping[collectionName];
@@ -90,8 +99,8 @@ app.delete('/delete-collection/:database/:collection', async (req, res) => {
 });
 ```
 
-- type the following request below the get request in the api-test.http file 
-```bash 
+- type the following request below the get request in the api-test.http file
+```bash
 
 ### Delete a Collection from a Database
 DELETE http://localhost:3000/delete-collection/{{database}}/{{collection}}
