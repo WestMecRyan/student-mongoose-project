@@ -82,6 +82,90 @@ app.get('/find/:database/:collection', async (req, res) => {
     }
 });
 
+app.post('/insert/:database/:collection', async (req, res) => {
+    try {
+        // extract the request parameters using destructuring
+        const { database, collection } = req.params;
+        // get the request body and store it as data
+        const data = req.body;
+        // Get the appropriate mongoose model for the specified database and collection by calling the getModel function and caching it as the const Model
+        const Model = await getModel(database, collection)
+        // Create a new instance of that model using the request body data and cache it to a const of newDocument
+        const newDocument = new Model(data)
+        // save the new document to the database using the save method asynchronously attached to the newDocument
+        await newDocument.save()
+        // log a success message to the console indicating wihch collection and database the document was added to
+        console.log(`document was added to ${database}-${collection}`);
+        // send back the newly created document as JSON with a 201 status code
+        res.status(201).json({ message: "document was created successfully", document: newDocument });
+    }
+    catch (err) {
+        // log any errors to the console
+        console.error('Error in post route', err);
+        // send back a 400 status code and the error message in the response
+        res.status(400).json({ error: err.message });
+    }
+});
+
+app.post('/insert/:database/:collection', async (req, res) => {
+    try {
+        const { database, collection } = req.params;
+        const data = req.body;
+        const Model = await getModel(database, collection)
+        const newDocument = new Model(data)
+        await newDocument.save()
+        console.log(`document was added to ${database}-${collection}`);
+        res.status(201).json({ message: "document was created successfully", document: newDocument });
+    }
+    catch (err) {
+        console.error('Error in post route', err);
+        res.status(400).json({ error: err.message });
+    }
+});
+
+app.put('/update/:database/:collection/:id', async (req, res) => {
+    try {
+        // cache the req.params through destructuring
+        const { database, collection, id } = req.params;
+        // cache the req.body as the const data
+        const data = req.body;
+        // cache the returned model as Model
+        const Model = await getModel(database, collection);
+        // cache the returned updated document using the .findByIdAndUpdate() method
+        const updatedDocument = await Model.findByIdAndUpdate(id, data, { new: true, runValidators: true });
+        // log document with id was updated successfully
+        console.log(`Document with id: ${id} was updated successfully`);
+        // if document was not found early return with a 404 status and error message
+        if (!updatedDocument) {
+            return res.status(404).json({ error: "Document not found" });
+        }
+        // otherwise respond with a 200 status code and send back the jsonified updated Document
+        res.status(200).json(updatedDocument);
+    } catch (err) {
+        // if there was an error return a bad request status and log the error to the console
+        console.error(`Therer was an error in the PUT route`, err);
+        res.status(400).json({ error: err.message });
+    }
+});
+app.delete('/delete/:database/:collection/:id', async (req, res) => {
+    try {
+        const { database, collection, id } = req.params;
+        const Model = await getModel(database, collection);
+        const deletedDocument = await Model.findByIdAndDelete(id);
+        if (!deletedDocument) {
+            return res.status(404).json({
+                error: 'Document not found'
+            });
+        }
+        console.log(`Document with id ${id} deleted from collection`);
+        res.status(200).json({ message: 'document deleted successfully' });
+    }
+    catch (err) {
+        console.error('There was an error in the Delete route', err);
+        res.status(400).json({ error: err.message });
+    }
+
+});
 // DELETE route to delete a specific collection in a database
 app.delete('/delete-collection/:database/:collection', async (req, res) => {
     try {
