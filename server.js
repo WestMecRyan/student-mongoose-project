@@ -70,14 +70,21 @@ const getModel = async (dbName, collectionName) => {
 
 app.get('/find/:database/:collection', async (req, res) => {
     try {
+        // Extract the database and collection from request parameters
         const { database, collection } = req.params;
+        // Get the appropriate Mongoose model
         const Model = await getModel(database, collection);
+        // Retrieve all documents from the collection
         const documents = await Model.find({});
+        // Log the number of documents retrieved
         console.log(`query executed, document count is: ${documents.length}`);
+        // Send back the documents with a 200 status code
         res.status(200).json(documents);
     }
     catch (err) {
+        // Log error to the console
         console.error('Error in GET route', err);
+        // Send back a 500 status code with the error message
         res.status(500).json({ error: err.message });
     }
 });
