@@ -164,7 +164,6 @@ app.delete('/delete/:database/:collection/:id', async (req, res) => {
         console.error('There was an error in the Delete route', err);
         res.status(400).json({ error: err.message });
     }
-
 });
 // DELETE route to delete a specific collection in a database
 app.delete('/delete-collection/:database/:collection', async (req, res) => {
