@@ -107,22 +107,6 @@ app.post('/insert/:database/:collection', async (req, res) => {
     }
 });
 
-app.post('/insert/:database/:collection', async (req, res) => {
-    try {
-        const { database, collection } = req.params;
-        const data = req.body;
-        const Model = await getModel(database, collection)
-        const newDocument = new Model(data)
-        await newDocument.save()
-        console.log(`document was added to ${database}-${collection}`);
-        res.status(201).json({ message: "document was created successfully", document: newDocument });
-    }
-    catch (err) {
-        console.error('Error in post route', err);
-        res.status(400).json({ error: err.message });
-    }
-});
-
 app.put('/update/:database/:collection/:id', async (req, res) => {
     try {
         // cache the req.params through destructuring
