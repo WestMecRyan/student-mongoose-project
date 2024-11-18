@@ -13,9 +13,12 @@ Content-Type: application/json
 
 {
   "item": "steak",
-  "food_group": "proteins"
+  "food_group": "proteins",
+  "price_in_usd": 12
 }
-
+###
+@delete-id = 26729667bf5c333ce5ee4a811
+DELETE {{domain}}:{{port}}/delete/{{database}}/{{collection}}/{{delete-id}}
 
 ### Delete a Collection from a Database
 DELETE http://localhost:3000/delete-collection/{{database}}/{{collection}}
