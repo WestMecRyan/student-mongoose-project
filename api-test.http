@@ -13,12 +13,13 @@ Content-Type: application/json
 
 {
   "item": "hamburger",
-  "food_group": "meat",
-  "price_in_usd": 10
+  "food_group": "proteins",
+  "price_in_usd": 10,
+  "calories_per_100g": 100
 }
 
 ###
-@put-id = 673bc7a1eda348340662d9a8
+@put-id=673e61d14ca812dce3d50329
 PUT {{domain}}:{{port}}/update/{{database}}/{{collection}}/{{put-id}}
 Content-Type: application/json
 
