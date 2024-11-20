@@ -12,13 +12,13 @@ POST {{domain}}:{{port}}/insert/{{database}}/{{collection}}
 Content-Type: application/json
 
 {
-  "item": "steak",
-  "food_group": "proteins",
-  "price_in_usd": 12
+  "item": "hamburger",
+  "food_group": "meat",
+  "price_in_usd": 10
 }
 
 ###
-@put-id = 67352fcfa53bbc2954f0be5f
+@put-id = 673bc7a1eda348340662d9a8
 PUT {{domain}}:{{port}}/update/{{database}}/{{collection}}/{{put-id}}
 Content-Type: application/json
 
@@ -28,7 +28,7 @@ Content-Type: application/json
   "price_in_usd": 500
 }
 ###
-@delete-id = 26729667bf5c333ce5ee4a811
+@delete-id = 673527ae934fe9424ef5dfe3
 DELETE {{domain}}:{{port}}/delete/{{database}}/{{collection}}/{{delete-id}}
 
 ### Delete a Collection from a Database
