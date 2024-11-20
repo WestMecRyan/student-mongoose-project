@@ -162,7 +162,43 @@ app.delete('/delete/:database/:collection/:id', async (req, res) => {
         res.status(400).json({ error: err.message })
     }
 });
+// Insert MANY route
+app.post('/insert-many/:database/:collection', async (req, res) => {
+    try {
+        // Extract the database and collection from request parameters
+        const { database, collection } = req.params;
+        // Get the array of documents from request body
+        const documents = req.body;
 
+        // Validate that the request body is an array
+        if (!Array.isArray(documents)) {
+            return res.status(400).json({
+                error: "Request body must be an array of documents"
+            });
+        }
+
+        // Get the appropriate Mongoose model
+        const Model = await getModel(database, collection);
+
+        // Insert many documents at once
+        const result = await Model.insertMany(documents, {
+            ordered: true,  // Set to false if you want to continue inserting even if some documents fail
+            runValidators: true
+        });
+
+        // Log success message
+        console.log(`${result.length} documents were saved to collection ${collection}`);
+
+        // Send back response with inserted count
+        res.status(201).json({
+            message: `Successfully inserted ${result.length} documents`,
+            insertedCount: result.length
+        });
+    } catch (err) {
+        console.error('Error inserting documents:', err);
+        res.status(400).json({ error: err.message });
+    }
+});
 // DELETE route to delete a specific collection in a database
 app.delete('/delete-collection/:database/:collection', async (req, res) => {
     try {
