@@ -29,7 +29,7 @@ Content-Type: application/json
   "price_in_usd": 500
 }
 ###
-@delete-id = 673527ae934fe9424ef5dfe3
+@delete-id = 673e75adab5a708c4424d3c9
 DELETE {{domain}}:{{port}}/delete/{{database}}/{{collection}}/{{delete-id}}
 
 ### Delete a Collection from a Database
@@ -42,26 +42,26 @@ Content-Type: application/json
 
 [
     {
-        "item": "apple",
-        "food_group": "fruits",
-        "price_in_usd": 0.3,
+        "item": "walnuts",
+        "food_group": "nuts",
+        "price_in_usd": 37,
         "quantity": 100,
-        "calories_per_100g": 52
+        "calories_per_100g": 100
     },
     {
-        "item": "broccoli",
+        "item": "red leaf lettuce",
         "food_group": "vegetables",
-        "price_in_usd": 1.1,
-        "quantity": 50,
-        "calories_per_100g": 34,
-        "organic": true
+        "price_in_usd": 1.8,
+        "quantity": 70,
+        "calories_per_100g": 52,
+        "organic": false
     },
     {
-        "item": "salmon",
+        "item": "tuna",
         "food_group": "proteins",
-        "price_in_usd": 8.5,
-        "quantity": 20,
-        "calories_per_100g": 208,
+        "price_in_usd": 9.2,
+        "quantity": 10,
+        "calories_per_100g": 250,
         "wild_caught": true
     }
 ]
